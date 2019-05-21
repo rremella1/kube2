@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: incident 
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: back
+      role: incident 
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: incident 
+        role: incident 
+        tier: back
+        version: latest
+    spec:
+      containers:
+      - image: durgaprasad/incidentservice:dev 
+        imagePullPolicy: Always
+        name: incidentservice
+        ports:
+        - containerPort: 1050 
+          protocol: TCP
